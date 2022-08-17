@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:13.0-alpine
+    env_file:
+      - ./.env
+    network_mode: host
+    volumes:
+      - ./DB:/var/lib/postgresql/data
+    restart: always

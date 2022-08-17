@@ -9,14 +9,14 @@ port = os.environ.get("DB_PORT")
 user = os.environ.get("POSTGRES_USER")
 password = os.environ.get("POSTGRES_PASSWORD")
 database = os.environ.get("POSTGRES_DB")
-ENVIRONMENT= os.environ.get("ENVIRONMENT", 'dev')
+ENVIRONMENT= os.environ.get("ENVIRONMENT", "dev")
+SECRET_KEY = os.environ.get("SECRET_KEY", "GRJikjauHy4gZQKp7usrkucTEP2VEwzJ")
 
-SECRET_KEY = "GRJikjauHy4gZQKp7usrkucTEP2VEwzJ"
 SQLALCHEMY_DATABASE_URI = f"postgresql://{user}:{password}@{host}:{port}/{database}"
 
 
 class Config(object):
-    # SQLAlchemy settings
+    """SQLAlchemy base config settings"""
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -26,11 +26,13 @@ class Config(object):
 
 
 class DevelopmentConfig(Config):
+    """SQLAlchemy development config settings"""
     DEBUG = True
     ENVIRONMENT='dev'
     # FLASK_APP="app"
 
 class TestingConfig(Config):
+    """SQLAlchemy test config settings"""
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     DEBUG = True
     TESTING = True
@@ -38,6 +40,7 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
+    """SQLAlchemy production config settings"""
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     DEBUG = False
     TESTING = False

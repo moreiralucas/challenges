@@ -1,3 +1,4 @@
+"""Configuration Test Module"""
 import pytest
 
 from app import app as application

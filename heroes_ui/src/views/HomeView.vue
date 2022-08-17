@@ -32,12 +32,12 @@ export default class Home extends Vue {
 
   async mounted(): Promise<void> {
     await this.getNotificationsData();
-    this.connect();
+    // this.connect();
   }
 
-  // async created(): Promise<void> {
-  //   this.connect();
-  // }
+  async created(): Promise<void> {
+    this.connect();
+  }
 
   connect(){
     console.log('Method in HomeView');

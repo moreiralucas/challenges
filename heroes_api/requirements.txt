@@ -7,3 +7,5 @@ psycopg2-binary==2.8.6
 black==22.6.0
 pytest==7.1.2
 coverage==6.4.3
+isort==5.10.1
+pylint_flask_sqlalchemy==0.2.0

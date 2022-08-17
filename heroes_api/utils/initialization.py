@@ -1,13 +1,14 @@
-import os
+"""Initialization Module"""
 
-from flask import Flask, redirect, url_for
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from config import DevelopmentConfig, ProductionConfig, TestingConfig, ENVIRONMENT
+from config import ENVIRONMENT, DevelopmentConfig, ProductionConfig, TestingConfig
 
-# App Factory
-def create_app(db: SQLAlchemy):
-    app = Flask(__name__)
+
+def create_app(data_base: SQLAlchemy):
+    """App Factory"""
+    app: Flask = Flask(__name__)
 
     if ENVIRONMENT == "prod":
         config_class = ProductionConfig
@@ -17,6 +18,6 @@ def create_app(db: SQLAlchemy):
         config_class = DevelopmentConfig
 
     app.config.from_object(config_class)
-    db.init_app(app)
+    data_base.init_app(app)
 
     return app

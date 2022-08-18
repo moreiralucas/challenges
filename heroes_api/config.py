@@ -17,7 +17,7 @@ SQLALCHEMY_DATABASE_URI = f"postgresql://{user}:{password}@{host}:{port}/{databa
 
 class Config(object):
     """SQLAlchemy base config settings"""
-    SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{user}:{password}@{host}:{port}/{database}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Flask Settings
@@ -33,7 +33,9 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     """SQLAlchemy test config settings"""
-    SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
+    database = 'heroes-database-test'
+
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{user}:{password}@{host}:{port}/{database}"
     DEBUG = True
     TESTING = True
     ENVIRONMENT='test'
@@ -41,7 +43,6 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     """SQLAlchemy production config settings"""
-    SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI
     DEBUG = False
     TESTING = False
     ENVIRONMENT='prod'

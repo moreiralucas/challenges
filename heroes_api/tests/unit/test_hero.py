@@ -1,7 +1,8 @@
+"""Test Hero Module"""
 from models import Hero
 
 
-def test_new_hero(app):
+def test_new_hero(app):  # pylint: disable=unused-argument
     """
     GIVEN a Hero model
     WHEN a new Hero is created

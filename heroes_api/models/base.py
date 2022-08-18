@@ -1,15 +1,14 @@
 """Base Models Module"""
 
-from datetime import datetime
 from flask_serialize import FlaskSerialize
-
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
-fs_mixin = FlaskSerialize(db)
+
+db: SQLAlchemy = SQLAlchemy()
+fs_mixin = FlaskSerialize(db)  # pylint: disable=invalid-name
 
 
-class BaseModel:  # (db.Model, fs_mixin):
+class BaseModel:
     """Base Model Class"""
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -17,6 +16,7 @@ class BaseModel:  # (db.Model, fs_mixin):
     # updated = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save(self):
+        """Save model data in database"""
         db.session.add(self)
         db.session.commit()
 

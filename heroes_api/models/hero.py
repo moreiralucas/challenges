@@ -1,6 +1,7 @@
 """Hero Model Module"""
 from typing import Dict
-from .base import BaseModel, fs_mixin, db
+
+from .base import BaseModel, db, fs_mixin
 
 
 class Hero(db.Model, fs_mixin, BaseModel):
@@ -14,14 +15,15 @@ class Hero(db.Model, fs_mixin, BaseModel):
     class_number = db.Column(db.Integer)
 
     def __repr__(self):
-        return "<Name %r>" % self.name
+        return f"<Name {self.name}>"
 
     def save(self):
         if self.class_number is None:
-            self.class_number = self.HEROES_CLASS[self.class_name.upper()]
+            self.class_number = self.HEROES_CLASS[self.class_name]
         return super().save()
 
     def __fs_before_update__(self, data_dict: Dict):
         data: Dict = dict(data_dict)
-        data['class_number'] = self.HEROES_CLASS[data.get('class_name')]
+        data["class_name"] = data.get("class_name", "").upper()
+        data["class_number"] = self.HEROES_CLASS[data.get("class_name")]
         return data

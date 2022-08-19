@@ -19,7 +19,7 @@ class BattleService(object):
         hero: Optional[Hero] = self._check_available_heroes(now)
 
         battle_end: datetime = now + timedelta(
-            seconds=self._get_battle_time_by_threat(self.threat.monster_name)
+            seconds=self._get_battle_time_by_threat(self.threat.danger_level)
         )
 
         battle: Battle = Battle(
@@ -43,7 +43,7 @@ class BattleService(object):
 
         return available_hero
 
-    def _get_battle_time_by_threat(self, threat_name: str) -> int:
+    def _get_battle_time_by_threat(self, danger_level: str) -> int:
         """Return the time of battle in seconds"""
         duration: Dict[str, Tuple[int, int]] = {
             "God": (300, 600),
@@ -51,4 +51,4 @@ class BattleService(object):
             "Tiger": (10, 20),
             "Wolf": (1, 2),
         }
-        return randint(*duration[threat_name])
+        return randint(*duration[danger_level])

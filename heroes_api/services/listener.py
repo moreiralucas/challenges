@@ -3,6 +3,7 @@ from typing import Optional
 from flask import Flask
 import socketio
 from models import Threat
+from .battle import BattleService
 
 sio = socketio.Client()
 
@@ -48,3 +49,6 @@ def occurrence(*args):
     with socket_heroes.app.app_context():
         threat: Threat = Threat.from_json(args[0])
         threat.save()
+
+        battle: BattleService = BattleService(threat)
+        battle.handle()

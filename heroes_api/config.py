@@ -29,7 +29,7 @@ class DevelopmentConfig(Config):
     """SQLAlchemy development config settings"""
     DEBUG = True
     ENVIRONMENT='dev'
-    # FLASK_APP="app"
+    FLASK_APP="app"
 
 class TestingConfig(Config):
     """SQLAlchemy test config settings"""

@@ -9,8 +9,8 @@ def test_new_user(app):  # pylint: disable=unused-argument
     THEN check the User is created correctly
     """
     user = User(
-        name="Spider Man",
+        name="Some user",
         email="some@email.com",
-        senha="somepassword"
+        password="somepassword"
     )
     user.save()

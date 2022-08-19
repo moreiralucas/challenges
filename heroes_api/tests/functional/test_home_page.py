@@ -15,6 +15,6 @@ def test_home_page(app):
     response = client.get(url)
     assert response.status_code == 200
     res = json.loads(response.data.decode('utf-8'))
-    assert type(res) is dict
+    assert isinstance(res, dict)
     assert "ok" in res
     assert res["ok"] == "index"

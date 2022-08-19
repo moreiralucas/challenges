@@ -19,6 +19,7 @@ import routes.hero
 import routes.history
 import routes.home
 import routes.index
+import routes.user
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

@@ -4,9 +4,9 @@ from models import Threat
 
 def test_new_threat(app):  # pylint: disable=unused-argument
     """
-    GIVEN
-    WHEN
-    THEN
+    GIVEN a new Threat
+    WHEN call constructors
+    THEN create object and check the monster_number is defined correctly
     """
     threat = Threat(
         danger_level="Wolf",

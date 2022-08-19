@@ -1,12 +1,13 @@
 """Threat Model Module"""
 from typing import Dict
 from sqlalchemy.dialects.postgresql import JSON
-from .base import BaseModel, db, fs_mixin
+from .base import BaseModelMixin, db, fs_mixin
 
-class Threat(db.Model, fs_mixin, BaseModel):
+
+class Threat(db.Model, fs_mixin, BaseModelMixin):
     """Threat Model"""
 
-    THREAT_CLASS = {
+    THREAT_LEVEL: Dict = {
         "God": 3,
         "Dragon": 2,
         "Tiger": 1,
@@ -15,9 +16,9 @@ class Threat(db.Model, fs_mixin, BaseModel):
 
     __tablename__ = "threat"
 
-    danger_level = db.Column(db.String(128))
-    monster_name = db.Column(db.String(128))
-    location = db.Column(JSON)
+    danger_level = db.Column(db.String(128), nullable=False)
+    monster_name = db.Column(db.String(128), nullable=False)
+    location = db.Column(JSON, nullable=False)
     danger_level_number = db.Column(db.Integer)
 
     def __repr__(self):
@@ -25,12 +26,13 @@ class Threat(db.Model, fs_mixin, BaseModel):
 
     def save(self):
         if self.danger_level_number is None:
-            self.danger_level_number = self.THREAT_CLASS[self.danger_level]
+            self.danger_level_number = self.THREAT_LEVEL[self.danger_level]
         return super().save()
 
     def __fs_before_update__(self, data_dict: Dict):
         data: Dict = dict(data_dict)
-        data["danger_level_number"] = self.THREAT_CLASS[data.get("danger_level")]
+        assert data["danger_level"] in self.THREAT_LEVEL
+        data["danger_level_number"] = self.THREAT_LEVEL[data.get("danger_level")]
         return data
 
     @classmethod
